@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="sedo_redactor_btn_demo" title="Redactor Button Demo" version_string="1.0.0" version_id="0" url="" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="editor_setup" execute_order="10" callback_class="Sedo_RedBtnDemo_Listener_AllInOne" callback_method="EditorSetup" active="1" hint="" description="Editor setup"/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="custom_bb_code_demo_desc" version_id="0" version_string="1.0.0"><![CDATA[Demo Bb Code]]></phrase>
+    <phrase title="custom_bb_code_demo_title" global_cache="1" version_id="0" version_string="1.0.0"><![CDATA[Demo Bb Code]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates>
+    <template title="editor_dialog_demo" version_id="0" version_string="1.0.0"><![CDATA[<dl class="ctrlUnit">
+	<dt>My Demo Content:</dt>
+	<dd><textarea name="redactor_demo_text" id="redactor_demo_text" class="textCtrl" style="height: 100px; resize: none"></textarea></dd>
+</dl>
+
+<dl class="ctrlUnit submitUnit">
+	<dt></dt>
+	<dd>
+		<input type="button" name="redactor_insert_demo_btn" class="redactor_modal_btn button primary" id="redactor_insert_demo_btn" value="{xen:phrase insert}" />
+		<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close button">{xen:phrase cancel}</a>
+	</dd>
+</dd>]]></template>
+  </templates>
+  <public_template_modifications>
+    <modification template="page_container_js_head" modification_key="sedo_redacor_btn_demo" description="Basic but safe integration for the Redactor Button" execution_order="10" enabled="1" action="preg_replace">
+      <find><![CDATA[#<!--XenForo_Require:JS-->#i]]></find>
+      <replace><![CDATA[$0
+<script src="{xen:helper javaScriptUrl, '{$javaScriptSource}/sedo/redbtndemo/extend.js?_v={$xenOptions.jsVersion}'}"></script>]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes>
+    <bb_code bb_code_id="demo" bb_code_mode="callback" has_option="optional" callback_class="Sedo_RedBtnDemo_Listener_AllInOne" callback_method="RedactorBtnCallback" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_empty="0" allow_signature="1" editor_icon_url="styles/default/xenforo/editor/icons.png" sprite_mode="1" active="1" sprite_params_x="3" sprite_params_y="-1053">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[demo]This is a demo[/demo]]]></example>
+    </bb_code>
+  </bb_codes>
+</addon>
