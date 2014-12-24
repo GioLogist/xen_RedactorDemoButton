@@ -16,8 +16,12 @@
 
 				/*If you want to open an overlay*/
 				ed.saveSelection();
-				ed.modalInit(editorFramework.getText('My custom demo title'), { url: editorFramework.dialogUrl + '&dialog=demo' }, 600, $.proxy(function()
+				ed.modalInit(editorFramework.getText('custom_demo_title'), { url: editorFramework.dialogUrl + '&dialog=demo' }, 600, $.proxy(function()
 				{
+					/***
+						Note that above the dialog name is called "demo", so the targeted template will be "editor_dialog_demo"
+						The getText function allows the text to be translated provided you reference it in the "editor_js_setup" template inside the "RELANG.xf" object
+					**/
 					$('#redactor_insert_demo_btn').click(function(e) {
 						e.preventDefault();
 						
@@ -39,6 +43,8 @@
 		}
 
 		/*For those who need to write a plugin, here's the optional code*/	
+		if(typeof RedactorPlugins == undefined) var RedactorPlugins = {};
+		
 		RedactorPlugins.myPlugin = {
 			init: function()
 			{

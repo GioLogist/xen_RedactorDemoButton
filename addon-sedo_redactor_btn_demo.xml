@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="sedo_redactor_btn_demo" title="Redactor Button Demo" version_string="1.0.0" version_id="1" url="" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+<addon addon_id="sedo_redactor_btn_demo" title="Redactor Button Demo" version_string="1.2" version_id="2" url="" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
@@ -21,6 +21,7 @@
   <phrases>
     <phrase title="custom_bb_code_demo_desc" version_id="0" version_string="1.0.0"><![CDATA[Demo Bb Code]]></phrase>
     <phrase title="custom_bb_code_demo_title" global_cache="1" version_id="0" version_string="1.0.0"><![CDATA[Demo Bb Code]]></phrase>
+    <phrase title="sedo_redbtndemo_modal_title" version_id="0" version_string="1.0.0"><![CDATA[Custom modal title]]></phrase>
   </phrases>
   <route_prefixes/>
   <style_properties/>
@@ -43,6 +44,11 @@
       <find><![CDATA[#<!--XenForo_Require:JS-->#i]]></find>
       <replace><![CDATA[$0
 <script src="{xen:helper javaScriptUrl, '{$javaScriptSource}/sedo/redbtndemo/extend.js?_v={$xenOptions.jsVersion}'}"></script>]]></replace>
+    </modification>
+    <modification template="editor_js_setup" modification_key="sedo_redacor_btn_demo_modal_title" description="Add modal title title" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[RELANG.xf = {]]></find>
+      <replace><![CDATA[$0
+	custom_demo_title: "{xen:jsescape {xen:phrase sedo_redbtndemo_modal_title}}",]]></replace>
     </modification>
   </public_template_modifications>
   <bb_code_media_sites/>
