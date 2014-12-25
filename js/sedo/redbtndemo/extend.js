@@ -94,7 +94,7 @@ if(typeof RedactorPlugins == 'undefined') var RedactorPlugins = {};
 			},
 			extraBtnCallback: function(ed)
 			{
-				console.log('The extra button have been called');
+				console.log('The extra button has been called');
 				
 				//Let's plug this callback on the above callback "demoButtonCallback"
 				demoButtonCallback(ed);
