@@ -11,20 +11,26 @@ if(typeof RedactorPlugins == 'undefined') var RedactorPlugins = {};
 		var editorFramework = data.editor,	//You can access the XenForo editor framework functions here
 			config = data.config; 		//You can modify the XenForo editor config here
 
-		var demoButtonCallback = function(ed)
+		var demoButtonCallback = function(ed, ev)
 		{
       			/*If you want to insert immediately some html, uncomment the below line*/
       				//ed.execCommand('inserthtml', 'Your Html'); return false;
 
       			/*If you want to open an overlay*/
       			ed.saveSelection();
-      			
-      			ed.modalInit(editorFramework.getText('custom_demo_title'), { url: editorFramework.dialogUrl + '&dialog=demo' }, 600, $.proxy(function()
+
+			//The getText function allows the text to be translated provided you reference it in the "editor_js_setup" template inside the "RELANG.xf" object
+			var modalTitle = editorFramework.getText('custom_demo_title');
+			
+			//Ignore this
+			if(typeof ev != undefined && $(ev.currentTarget).hasClass('redactor_btn_my_extra_btn_id')){
+				modalTitle += ' - from the programmatically button';
+			}
+
+			//Open the modal
+      			ed.modalInit(modalTitle, { url: editorFramework.dialogUrl + '&dialog=demo' }, 600, $.proxy(function()
       			{
-      				/***
-      					Note that above the dialog name is called "demo", so the targeted template will be "editor_dialog_demo"
-      					The getText function allows the text to be translated provided you reference it in the "editor_js_setup" template inside the "RELANG.xf" object
-      				**/
+      				// Note that above the dialog name is called "demo", so the targeted template will be "editor_dialog_demo"
       				$('#redactor_insert_demo_btn').click(function(e) {
       					e.preventDefault();
       					
@@ -41,8 +47,6 @@ if(typeof RedactorPlugins == 'undefined') var RedactorPlugins = {};
       					//editorFramework.wrapSelectionInHtml(ed, '[DEMO]', '[/DEMO]', true);
       					ed.modalClose();
       				});
-	
-      				ed.$editor.trigger('demoBtnModalReady'); //ignore this
       			}, ed));
 		};
 
@@ -92,17 +96,12 @@ if(typeof RedactorPlugins == 'undefined') var RedactorPlugins = {};
 				//Let's modify the added button to match the default html structure 
 				this.extraBtnFormatLayout(extraBtnId);
 			},
-			extraBtnCallback: function(ed)
+			extraBtnCallback: function(ed, ev)
 			{
 				console.log('The extra button has been called');
 				
 				//Let's plug this callback on the above callback "demoButtonCallback"
-				demoButtonCallback(ed);
-				
-				//Let's modify the modal title to make a difference
-				ed.$editor.on('demoBtnModalReady', function(e){
-					$('#redactor_modal_header').text($('#redactor_modal_header').text() + ' - trigger from the programmatically button');
-				});
+				demoButtonCallback(ed, ev);
 			},
 			extraBtnFormatLayout: function(id)
 			{
